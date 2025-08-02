@@ -5,10 +5,10 @@
 using namespace std;
 
 //variables
-
-const std::string player_1_token = "X";
-const std::string player_2_token = "O";
-
+//constants for the state of the board
+const std::string PLAY = "PLAY", TIE = "TIE", X_WIN = "X_WIN", O_WIN = "O_WIN";
+//constants for checking the winner
+const std::string WINNER = "WINNER", SPACE_LEFT = "SPACE_LEFT", NO_SPACE = "NO_SPACE";
 
 //defining function prototypes
 
@@ -16,11 +16,13 @@ void initializeBoard(array<array<char, 3>, 3>& board);
 
 void displayBoard(array<array<char, 3>, 3>& board);
 
-void getLocation(int& row, int& col);
+void getLocation(int& row, int& col, array<array<char, 3>, 3>& board);
 
-void placeToken(array<array<char, 3>, 3>& board, string playerToken);
+void placeToken(array<array<char, 3>, 3>& board, char playerToken);
 
+string checkForWinner(char playerToken, const array<array<char, 3>, 3>& board);
 
+string getBoardState(char playerToken, const array<array<char, 3>, 3>& board);
 
 
 int main()
@@ -28,6 +30,9 @@ int main()
     std::array<std::array<char, 3>, 3> board;
     initializeBoard(board);
     displayBoard(board);
+
+    char player_1_token = 'X';
+    char player_2_token = 'O';
     return 0;
 }
 
@@ -79,4 +84,23 @@ void getLocation(int& row, int& col, array<array<char, 3>, 3>& board) {
         //when valid location found
         break;
     } 
+}
+
+void placeToken(array<array<char, 3>, 3>& board, char playerToken) {
+    int row, col;
+    getLocation(row, col, board);
+    board[row - 1][col - 1] = playerToken;
+}
+
+string checkForWinner(char playerToken, const array<array<char, 3>, 3>& board) {
+    //check rows and columns
+    for (int j = 0; j < 3: ++j) {
+
+    }
+
+
+}
+
+string getBoardState(char playerToken, const array<array<char, 3>, 3>& board) {
+
 }

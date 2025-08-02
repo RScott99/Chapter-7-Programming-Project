@@ -31,8 +31,35 @@ int main()
     initializeBoard(board);
     displayBoard(board);
 
+    string boardState = "PLAY";
     char player_1_token = 'X';
     char player_2_token = 'O';
+
+    while (boardState == "PLAY") {
+        std::cout << "\nPlayer 1 (X), it is your move:\n";
+        placeToken(board, player_1_token);
+        displayBoard(board);
+        boardState = getBoardState(player_1_token, board);
+        if (boardState != "PLAY") break;
+
+        std::cout << "\nPlayer 2 (O), it is your move:\n";
+        placeToken(board, player_2_token);
+        displayBoard(board);
+        boardState = getBoardState(player_2_token, board);
+    }
+
+    std::cout << "\nGame Over: ";
+    if (boardState == X_WIN) {
+        std::cout << "Plater 1 (X) wins!\n";
+    }
+    else if (boardState == O_WIN) {
+        std::cout << "Player 2 (O) wins!\n";
+    }
+    else if (boardState == TIE) {
+        std::cout << "Tie Game!\n";
+    }
+
+
     return 0;
 }
 
@@ -94,13 +121,38 @@ void placeToken(array<array<char, 3>, 3>& board, char playerToken) {
 
 string checkForWinner(char playerToken, const array<array<char, 3>, 3>& board) {
     //check rows and columns
-    for (int j = 0; j < 3: ++j) {
-
+    for (int i = 0; i < 3; ++i) {
+        if (board[i][0] == playerToken && board[i][1] == playerToken && board[i][2] == playerToken) {
+            return WINNER;
+        }
+        if (board[0][i] == playerToken && board[1][i] == playerToken && board[2][i] == playerToken) {
+            return WINNER;
+        }
+    }
+    //check diagonals
+    if (board[0][0] == playerToken && board[1][1] == playerToken && board[2][2] == playerToken) {
+        return WINNER;
+    }
+    if (board[0][0] == playerToken && board[1][1] == playerToken && board[2][2] == playerToken) {
+        return WINNER;
+    }
+    //check if all spaces are filled
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            if (board[i][j] == '*') return "SPACE_LEFT";
+        }
     }
 
-
+    return "NO_SPACE";
 }
 
 string getBoardState(char playerToken, const array<array<char, 3>, 3>& board) {
-
+    string result = checkForWinner(playerToken, board);
+    if (result == WINNER) {
+        return (playerToken == 'X') ? X_WIN : O_WIN;
+    } else if (result == NO_SPACE) {
+        return TIE;
+    } else {
+        return PLAY;
+    }
 }

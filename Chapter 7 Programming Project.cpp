@@ -50,7 +50,7 @@ int main()
 
     std::cout << "\nGame Over: ";
     if (boardState == X_WIN) {
-        std::cout << "Plater 1 (X) wins!\n";
+        std::cout << "Player 1 (X) wins!\n";
     }
     else if (boardState == O_WIN) {
         std::cout << "Player 2 (O) wins!\n";
